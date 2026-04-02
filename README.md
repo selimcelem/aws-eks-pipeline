@@ -80,6 +80,7 @@ GitHub Actions CI/CD
 - Builds Docker image
 - Pushes image to Amazon ECR
 - Deploys to EKS via `helm upgrade`
+- AWS authentication via OIDC — no long-lived credentials stored in GitHub Secrets
 
 ### Helm
 
