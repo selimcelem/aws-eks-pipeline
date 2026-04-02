@@ -11,7 +11,7 @@
 An end-to-end AWS infrastructure and CI/CD pipeline for deploying a containerized application to Kubernetes. The focus is the complete flow from code commit to a live, accessible API running on EKS — not the application itself.
 
 > **Project type:** Cloud Portfolio Project
-> **Source:** Mock project brief provided by David Tran, Cloud Architect at Veeam
+> **Source:** Industry-sourced mock project brief
 
 ---
 
