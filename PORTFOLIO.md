@@ -9,7 +9,7 @@ I built an end-to-end AWS infrastructure and CI/CD pipeline that takes a contain
 - A reproducible AWS environment defined entirely in Terraform: a VPC with public and private subnets across three availability zones, an EKS cluster with a managed node group running on private subnets, an ECR repository for container images, and a set of IAM roles (cluster role, node role, and a separate S3 read-only role attachable to nodes so pods can call the AWS SDK).
 - A small containerized Python REST API with a health endpoint, packaged with a Dockerfile, used as the workload that flows through the pipeline.
 - A planned GitHub Actions pipeline that builds the Docker image, pushes it to ECR, and deploys to EKS via `helm upgrade` — authenticating to AWS through OIDC instead of long-lived credentials in GitHub Secrets.
-- A custom Helm chart that exposes the service through an Nginx-backed load balancer so the API is reachable from outside the cluster.
+- A custom Helm chart for the application: Deployment with liveness and readiness probes against `/health`, a `LoadBalancer` Service that exposes port 80 to the container's port 5000, a dedicated ServiceAccount ready to be annotated for IRSA, and a values file that parameterises image repository/tag, replica count, and resource requests and limits so CI can override the image tag on every build.
 
 ## Technologies
 
