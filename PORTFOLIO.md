@@ -27,6 +27,7 @@ I built an end-to-end AWS infrastructure and CI/CD pipeline that takes a contain
 - **Secure cloud-to-CI authentication.** Wiring GitHub Actions to AWS through OIDC eliminated the need to store long-lived AWS access keys as repository secrets, which is the kind of credential that tends to leak and rarely gets rotated.
 - **Clean separation of concerns at the network layer.** Running EKS worker nodes in private subnets, with a single NAT Gateway for egress and public subnets reserved for load balancers, keeps the workloads off the public internet by default while still allowing an HTTP endpoint to be exposed deliberately.
 - **Pod-level AWS access without static credentials.** Designing a dedicated IAM role for S3 read-only access — rather than baking permissions into the node role wholesale — keeps the blast radius of pod credentials small and makes future permission changes auditable.
+- **Bounded image storage in ECR.** Attaching a lifecycle policy to the repository that retains only the last 10 images prevents the registry from growing without limit as every commit to `main` produces a new SHA-tagged image, which keeps storage cost predictable without any manual cleanup.
 
 ## Cost Management
 
