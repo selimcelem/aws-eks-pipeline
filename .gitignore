@@ -1,12 +1,16 @@
-# local
-.claude/
-prompt.md
-CLAUDE.md
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.env
 
-# terraform
-.terraform/
+# Terraform
 *.tfstate
 *.tfstate.backup
-.terraform.lock.hcl
+.terraform/
 *.tfvars
 crash.log
+
+# OS
+.DS_Store
+Thumbs.db
