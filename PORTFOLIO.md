@@ -29,6 +29,10 @@ I built an end-to-end AWS infrastructure and CI/CD pipeline that takes a contain
 - **Pod-level AWS access without static credentials.** Designing a dedicated IAM role for S3 read-only access, rather than baking permissions into the node role wholesale, keeps the blast radius of pod credentials small and makes future permission changes auditable.
 - **Bounded image storage in ECR.** Attaching a lifecycle policy to the repository that retains only the last 10 images prevents the registry from growing without limit as every commit to `main` produces a new SHA-tagged image, which keeps storage cost predictable without any manual cleanup.
 
+## Status
+
+The pipeline has been exercised end to end against real AWS infrastructure. I provisioned the stack with `terraform apply`, pushed a commit to `main`, and watched GitHub Actions build the Docker image, authenticate to AWS through OIDC, push the image to ECR, and run `helm upgrade --install` against the EKS cluster. The Service came up behind an AWS load balancer and the API responded successfully when I hit the load balancer endpoint from my local machine, confirming that every layer of the project (Terraform, GitHub Actions, ECR, EKS, Helm, and the network path out to the public internet) works together as intended.
+
 ## Cost Management
 
 The infrastructure is intentionally ephemeral. I spin the full environment up with `terraform apply` when I want to test or demo the pipeline end-to-end, and tear it back down with `terraform destroy` as soon as I am finished so that nothing keeps running on my AWS bill. EKS control planes, NAT Gateways, and load balancers are all billed by the hour whether or not anyone is using them, so leaving the stack idle is the most expensive failure mode of a project like this. Treating the environment as disposable, rebuilt on demand from code and never long-lived, is the same discipline I would apply to non-production environments in a real engineering org.
