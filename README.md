@@ -8,7 +8,7 @@
 
 # AWS EKS Application Deployment Pipeline
 
-An end-to-end AWS infrastructure and CI/CD pipeline for deploying a containerized application to Kubernetes. The focus is the complete flow from code commit to a live, accessible API running on EKS — not the application itself.
+An end-to-end AWS infrastructure and CI/CD pipeline for deploying a containerized application to Kubernetes. The focus is the full path from a code commit to a running API on EKS, not the application itself.
 
 > **Project type:** Cloud Portfolio Project
 > **Source:** Industry-sourced mock project brief
@@ -80,7 +80,7 @@ GitHub Actions CI/CD
 - Builds Docker image
 - Pushes image to Amazon ECR
 - Deploys to EKS via `helm upgrade`
-- AWS authentication via OIDC — no long-lived credentials stored in GitHub Secrets
+- AWS authentication via OIDC, with no long-lived credentials stored in GitHub Secrets
 
 ### Helm
 
